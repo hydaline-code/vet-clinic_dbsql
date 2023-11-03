@@ -103,12 +103,10 @@ Deploy this project on any server: localhost, live host, cloud host.
 
 ## 👥 Authors <a name="authors"></a>
 
-👤 **Ngala Mac**
+👤 **Hydaline Charlene**
 
-- GitHub: [ngalamac](https://github.com/hydaline-code)
-
-
-
+- GitHub: [Hydaline](https://github.com/hydaline-code)
+- 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
