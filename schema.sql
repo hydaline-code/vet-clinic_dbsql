@@ -1,5 +1,6 @@
 /* Database schema to keep the structure of entire database. */
 
+
 -- ALTER TABLE animals
 -- ADD  species VARCHAR(255) ;
 
@@ -14,8 +15,14 @@
 --     name VARCHAR(255)
 -- );
 
-ALTER TABLE animals
-ADD COLUMN species_id INTEGER REFERENCES species(id),
-ADD COLUMN owner_id INTEGER REFERENCES owners(id);
+-- ALTER TABLE animals
+-- ADD COLUMN species_id INTEGER REFERENCES species(id),
+-- ADD COLUMN owner_id INTEGER REFERENCES owners(id);
+
+
+
+
+
+
 
 
