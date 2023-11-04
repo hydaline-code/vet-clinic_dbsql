@@ -1,13 +1,3 @@
-<a name="readme-top"></a>
-![](https://img.shields.io/badge/Microverse-blueviolet)
-
-<div align="center">
-
-  <br/>
-
-  <h3><b>Veterinary Clinic</b></h3>
-
-</div>
 
 # 📗 Table of Contents
 
