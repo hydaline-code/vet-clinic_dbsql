@@ -106,7 +106,7 @@ Deploy this project on any server: localhost, live host, cloud host.
 👤 **Hydaline Charlene**
 
 - GitHub: [Hydaline](https://github.com/hydaline-code)
-- 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
@@ -138,7 +138,7 @@ I would like to thank the Microverse community.
 ## 📝 License <a name="license"></a>
 
 
-This project is [MIT](./MIT.md) licensed.
+This project is [MIT-LICENSE](https://github.com/hydaline-code/vet-clinic_dbsql/blob/Animal_table/LICENSE) licensed.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
