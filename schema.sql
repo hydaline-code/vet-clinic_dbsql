@@ -1,79 +1,88 @@
--- /* Database schema to keep the structure of entire database. */
 
--- CREATE TABLE animals (
---   id  INTEGER,
---   name VARCHAR(255),
---   date_of_birth DATE,
---   escape_attempts INTEGER,
---   neutered BOOLEAN,
---   weight_kg DECIMAL(10, 2)
--- );
 
--- ALTER TABLE animals
--- ADD  species VARCHAR(255) ;
+/* Database schema to keep the structure of entire database. */
 
--- CREATE TABLE owners (
---     id SERIAL PRIMARY KEY,
---     full_name VARCHAR(255),
---     age INTEGER
--- );
-
--- CREATE TABLE species (
---     id SERIAL PRIMARY KEY,
---     name VARCHAR(255)
--- );
-
--- ALTER TABLE animals
---   DROP COLUMN species,
---   ADD COLUMN species_id INTEGER REFERENCES species(id),
---   ADD COLUMN owner_id INTEGER REFERENCES owners(id);
-
--- ALTER TABLE animals
--- ADD COLUMN id_new SERIAL PRIMARY KEY;
-
--- UPDATE animals
--- SET id_new = DEFAULT;
-
--- ALTER TABLE animals
--- DROP COLUMN id;
--- ALTER TABLE animals
--- RENAME COLUMN id_new TO id;
-
--- CREATE TABLE animals_temp (
---   id SERIAL PRIMARY KEY,
---   name VARCHAR(255),
---   date_of_birth DATE,
---   escape_attempts INTEGER,
---   neutered BOOLEAN,
---   weight_kg DECIMAL(10, 2),
---   species_id INTEGER REFERENCES species(id),
---   owner_id INTEGER REFERENCES owners(id)
--- );
-
--- DROP TABLE animals;
-
--- ALTER TABLE animals_temp RENAME TO animals;
-
--- CREATE TABLE vets (
---     id SERIAL PRIMARY KEY,
---     name VARCHAR(255),
---     age INTEGER,
---     date_of_graduation DATE
--- );
-
--- CREATE TABLE specializations (
---     vet_id INTEGER,
---     species_id INTEGER,
---     PRIMARY KEY (vet_id, species_id),
---     FOREIGN KEY (vet_id) REFERENCES vets(id),
---     FOREIGN KEY (species_id) REFERENCES species(id)
--- );
-
-CREATE TABLE visits (
-    animal_id INTEGER,
-    vet_id INTEGER,
-    date_of_visit DATE,
-    PRIMARY KEY (animal_id, vet_id, date_of_visit),
-    FOREIGN KEY (animal_id) REFERENCES animals(id),
-    FOREIGN KEY (vet_id) REFERENCES vets(id)
+CREATE TABLE animals (
+    ID INT PRIMARY KEY,
+    name VARCHAR(100),
+    date_of_birth DATE,
+    escape_attempts INT,
+    neutered BOOLEAN,
+    weight_kg DECIMAL,
+    species VARCHAR(100)
 );
+
+-- Alter table to add species
+ALTER TABLE animals ADD species VARCHAR(100);
+
+--Create owners table
+
+CREATE TABLE owners (
+    id SERIAL,
+    full_name VARCHAR(100),
+    age INT,
+    PRIMARY KEY(id)
+);
+
+--Create species table
+CREATE TABLE species (
+    id SERIAL,
+    name VARCHAR(100),
+    PRIMARY KEY(id)
+);
+
+-- Remove species columns
+ALTER TABLE animals DROP COLUMN species;
+
+-- Add column species_id which is a foreign key referencing species table
+ALTER TABLE animals ADD species_id INT;
+ALTER TABLE animals ADD CONSTRAINT fk_species FOREIGN KEY (species_id) REFERENCES species(id);
+
+--Add column owner_id which is a foreign key referencing the owners table
+ALTER TABLE animals ADD owners_id INT;
+ALTER TABLE animals ADD CONSTRAINT fk_owners FOREIGN KEY (owners_id) REFERENCES owners(id);
+
+-- Create vets table
+
+CREATE TABLE vets (
+    id SERIAL,
+    name VARCHAR(100),
+    age INT,
+    date_of_graduation DATE,
+    PRIMARY KEY(id)
+);
+
+-- Create Join Table Specializations
+
+CREATE TABLE specializations (
+  vets_id INT NOT NULL,
+  species_id INT NOT NULL,
+  FOREIGN KEY (vets_id) REFERENCES vets (id),
+  FOREIGN KEY (species_id) REFERENCES species (id)
+);
+
+-- Create Join Table Visits
+
+CREATE TABLE visits(
+  vets_id INT NOT NULL,
+  animals_id INT NOT NULL,
+  date_of_visit DATE,
+  FOREIGN KEY (vets_id) REFERENCES vets (id),
+  FOREIGN KEY (animals_id) REFERENCES animals (id)
+);
+
+-- PERFORMANCE
+
+-- Add an email column to your owners table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+
+-- Add index for SELECT COUNT(*) FROM visits where animal_id = 4;
+CREATE INDEX animals_id_asc ON visits(animals_id ASC);
+
+-- Add index for SELECT * FROM visits where vet_id = 2;
+CREATE INDEX vets_id_asc ON visits(vets_id ASC);
+
+-- Add index for SELECT * FROM owners where email = 'owner_18327@mail.com';
+CREATE INDEX email_asc ON owners(email ASC);
+
